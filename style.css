@@ -1,0 +1,198 @@
+@import url('[https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap](https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap)');
+
+:root {
+    --bg-color: #0d0d15;
+    --accent-blue: #00f3ff;
+    --accent-pink: #ff00ff;
+    --accent-green: #00ff66;
+    --accent-red: #ff3333;
+    --ui-bg: rgba(20, 20, 30, 0.9);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    background-image: 
+        linear-gradient(rgba(13, 13, 21, 0.9), rgba(13, 13, 21, 0.9)),
+        linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .05) 25%, rgba(255, 255, 255, .05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .05) 75%, rgba(255, 255, 255, .05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+    touch-action: none;
+}
+
+#game-wrapper {
+    position: relative;
+    padding: 4px;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-pink));
+    border-radius: 4px;
+    box-shadow: 0 0 40px rgba(0, 243, 255, 0.2);
+}
+
+#game-container {
+    position: relative;
+    background-color: #000;
+    width: 600px;
+    height: 400px;
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- UI OVERLAYS --- */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(13, 13, 21, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 20;
+    transition: opacity 0.3s;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+h1 {
+    font-size: 32px;
+    background: -webkit-linear-gradient(var(--accent-blue), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.1);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.btn-start {
+    background: transparent;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    padding: 15px 30px;
+    border: 2px solid var(--accent-blue);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    animation: pulse 1.5s infinite;
+}
+
+.btn-start:hover {
+    background: var(--accent-blue);
+    color: #000;
+    box-shadow: 0 0 20px var(--accent-blue);
+}
+
+/* --- HUD --- */
+#hud-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.hud-item {
+    font-size: 10px;
+    color: #aaa;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #333;
+}
+
+.hud-val {
+    color: var(--accent-blue);
+}
+
+#msg-overlay {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+    z-index: 15;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-out;
+}
+
+#msg-overlay.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#msg-main { color: var(--accent-pink); font-size: 20px; margin-bottom: 5px; text-shadow: 2px 2px 0 #000; }
+#msg-sub { color: #fff; font-size: 10px; text-shadow: 1px 1px 0 #000; }
+
+/* --- MOBILE CONTROLS --- */
+#mobile-controls {
+    display: none;
+    width: 600px; /* Match game width */
+    max-width: 100%;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-top: 10px;
+}
+
+.d-pad { display: flex; gap: 20px; }
+
+.ctrl-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: rgba(255,255,255,0.7);
+    user-select: none;
+}
+
+.ctrl-btn:active { background: var(--accent-blue); color: #000; }
+#btn-jump { border-color: var(--accent-green); color: var(--accent-green); }
+#btn-jump:active { background: var(--accent-green); color: #000; }
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 700px) {
+    #game-container, #game-wrapper {
+        width: 100vw;
+        height: 60vh;
+        border: none;
+        border-radius: 0;
+    }
+    #mobile-controls { display: flex; width: 90%; }
+}
