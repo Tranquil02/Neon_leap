@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Leap: The Slippery Slope</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="game-wrapper">
+        <div id="game-container">
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            
+            <!-- MAIN MENU -->
+            <div id="menu-screen" class="overlay">
+                <h1>NEON LEAP<br><span style="font-size:14px; color:#fff;">The Slippery Slope</span></h1>
+                <button class="btn-start" onclick="startGame()">START GAME</button>
+                <p style="margin-top:20px; font-size:10px; color:#666;">Arrows/WASD to Move • Space to Jump</p>
+            </div>
+
+            <!-- VICTORY SCREEN -->
+            <div id="victory-screen" class="overlay hidden">
+                <h1 style="color:var(--accent-green)">MISSION<br>COMPLETE</h1>
+                <p id="final-stats" style="font-size:10px; margin-bottom:20px; color:#ccc;">Deaths: 0</p>
+                <button class="btn-start" onclick="resetGame()">PLAY AGAIN</button>
+            </div>
+
+            <!-- HUD -->
+            <div id="hud-layer">
+                <div class="hud-item">LEVEL <span id="hud-level" class="hud-val">1</span></div>
+                <div class="hud-item">ATTEMPTS <span id="hud-deaths" class="hud-val" style="color:var(--accent-red)">0</span></div>
+            </div>
+
+            <!-- MESSAGES -->
+            <div id="msg-overlay">
+                <div id="msg-main">NICE JUMP!</div>
+                <div id="msg-sub">Keep going</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-controls">
+        <div class="d-pad">
+            <div class="ctrl-btn" id="btn-left">←</div>
+            <div class="ctrl-btn" id="btn-right">→</div>
+        </div>
+        <div class="ctrl-btn" id="btn-jump">▲</div>
+    </div>
+
+    <!-- Link to the JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
